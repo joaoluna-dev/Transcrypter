@@ -1,0 +1,5 @@
+{
+  "temperature": 0.5,
+  "candidate_count": 1,
+  "model_config": "gemini-2.5-pro"
+}
