@@ -24,8 +24,8 @@ joaogabrieldeluna@gmail.com
 ```bash
 python main.py
 ```
-
-*Siga o menu interativo para selecionar o tipo de arquivo que deseja processar. A saída será salva nas pastas `/transcriptions` e `/resumes`.*
+* Os diretórios para os arquivos serão criados automaticamente. Adicione o arquivo desejado no diretório correspondente
+* Siga o menu interativo para selecionar o tipo de arquivo que deseja processar. A saída será salva nas pastas `/transcriptions` e `/resumes`.
 
 ## ⬇️ Instalação
 
