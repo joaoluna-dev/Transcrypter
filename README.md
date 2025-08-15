@@ -1,4 +1,4 @@
-# 📦 Transcryptor
+# 📦 Transcrypter
 
 ## 🌟 Destaques
 
@@ -32,8 +32,8 @@ python main.py
 1. **Clonar o repositório:**
    
    ```bash
-   git clone <url_do_repositorio>
-   cd Transcryptor
+   git clone https://github.com/joaoluna-dev/Transcrypter.git
+   cd Transcrypter
    ```
 
 2. **Instalar as dependências:**
