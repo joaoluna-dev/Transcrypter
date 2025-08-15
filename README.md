@@ -14,7 +14,8 @@ O Transcryptor é uma ferramenta baseada em Python projetada para automatizar o 
 
 ### ✍️ Autores
 
-I'm a biomedical scientist, working in Data science, computational biology, and genomics. This tool is made for scientists who want to get SNVs from a sequenced sample in an easy and fast way, and use the data for downstream analysis.
+João Gabriel Barbosa de Luna
+joaogabrieldeluna@gmail.com
 
 ## 🚀 Uso
 
