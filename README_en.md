@@ -1,4 +1,4 @@
-# 📦 Transcryptor
+# 📦 Transcrypter
 
 ## 🌟 Highlights
 
@@ -32,8 +32,8 @@ python main.py
 1. **Clone the repository:**
    
    ```bash
-   git clone <repository_url>
-   cd Transcryptor
+   git clone https://github.com/joaoluna-dev/Transcrypter.git
+   cd Transcrypter
    ```
 
 2. **Install dependencies:**
@@ -41,13 +41,8 @@ python main.py
    ```bash
    pip install pydub vosk moviepy google-genai python-dotenv pytubefix
    ```
-
-3. **Download the Vosk Model:**
    
-   - Download the Portuguese (Brazil) model from: [https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip](https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip)
-   - Extract the contents of the zip file into a folder named `model` in the root directory of the project.
-
-4. **Set up API Key:**
+3. **Set up API Key:**
    
    - When you first run the application, you will be prompted to enter your Google AI API key.
    
