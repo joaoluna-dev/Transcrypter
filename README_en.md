@@ -24,8 +24,8 @@ joaogabrieldeluna@gmail.com
 ```bash
 python main.py
 ```
-
-*Follow the interactive menu to select the type of file you want to process. The output will be saved in the `/transcriptions` and `/resumes` folders.*
+* The folders will be created automatically. Put the correspondent file in the directory 
+* Follow the interactive menu to select the type of file you want to process. The output will be saved in the `/transcriptions` and `/resumes` folders.
 
 ## ⬇️ Installation
 
