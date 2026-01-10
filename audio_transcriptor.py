@@ -91,7 +91,7 @@ file_name = sys.argv[2]
 filename = os.path.splitext(Path(file_name).name)[0] #Obtém o nome do arquivo de áudio, sem o caminho e a extensão
 wav_path = os.path.join(audios, f"{filename}.wav") #Cria o arquivo .wav, que é utilizado pelo vosk. Caso o arquivo de origem seja um mp3, ele será convertido em wav, que será escrito aqui
 txt_path = os.path.join(transcriptions, f"{filename}.txt") #Cria o arquivo de texto no qual será escrita a transcrição do áudio
-modelpath = os.path.join(root, "model") #Passa o caminho do modelo Vosk, utilizado para fazer a transcrição
+modelpath = os.path.join(root, "vosk-model-small-pt-0.3") #Passa o caminho do modelo Vosk, utilizado para fazer a transcrição
 
 #Caso o o modelo vosk pt-br não exista no diretório
 if not os.path.exists(modelpath):
@@ -123,4 +123,5 @@ with open(txt_path, "w+", encoding='utf-8') as transcription:
 #Faz a chamada do script responsável pelo resumo da transcrição criada, passando o arquivo da transcrição em .txt e o nome do arquivo original de áudio
 print("Transcrypter - Iniciando processo de resumo...")
 subprocess.run(["python", "resume_model.py", txt_path, filename])
+
 
