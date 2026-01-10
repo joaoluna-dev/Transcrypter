@@ -23,16 +23,6 @@ joaogabrieldeluna@gmail.com
 * ffmpeg (https://www.gyan.dev/ffmpeg/builds/)
 * Chave de API Gemini (https://aistudio.google.com/apikey)
 * Modelo Vosk para reconhecimento de voz offline (https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip)
-  
-## 🚀 Uso
-
-*Execute a aplicação a partir do diretório raiz do projeto:*
-
-```bash
-python main.py
-```
-* Os diretórios para os arquivos serão criados automaticamente no caminho inserido. Adicione o arquivo desejado no diretório correspondente
-* Siga o menu interativo para selecionar o tipo de arquivo que deseja processar. A saída será salva nas pastas `/transcriptions` e `/resumes`.
 
 ## ⬇️ Instalação
 
@@ -90,6 +80,24 @@ python main.py
    
    - A chave será salva automaticamente em um arquivo `chaves.env` para uso futuro.
 
+## 🚀 Uso
+
+*Execute a aplicação a partir do diretório raiz do projeto:*
+
+```bash
+cd Transcrypter
+python main.py
+```
+
+* Os diretórios para os arquivos serão criados automaticamente no caminho inserido. Adicione o arquivo desejado no diretório correspondente
+* Siga o menu interativo para selecionar o tipo de arquivo que deseja processar. A saída será salva nas pastas `/transcriptions` e `/resumes`.
+
+## 📄 Arquivos especiais
+
+* `config.json`: arquivo de configuração do modelo Gemini para sumarização das transcrições, com parâmetros de temperatura (nível de criatividade do modelo), candidate_count e model_config (modelo Gemini utilizado).
+* `requirements.txt`: arquivo com os requisitos para o funcionamento do Transcrypter.
+* `chaves.env`: arquivo criado após a primeira utilização do software, que contém a chave de acesso para o Gemini.
+  
 ## 💭 Feedback e Contribuição
 
 Sinta-se à vontade para abrir uma issue para relatar bugs ou solicitar recursos.
