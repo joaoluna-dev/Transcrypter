@@ -17,6 +17,13 @@ O Transcryptor é uma ferramenta baseada em Python projetada para automatizar o 
 João Gabriel Barbosa de Luna
 joaogabrieldeluna@gmail.com
 
+## ⚠️ Requisitos
+
+* Python 3.x
+* ffmpeg
+* Chave de API Gemini (https://aistudio.google.com/apikey)
+* Modelo Vosk para reconhecimento de voz offline (https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip)
+  
 ## 🚀 Uso
 
 *Execute a aplicação a partir do diretório raiz do projeto:*
