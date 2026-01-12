@@ -73,12 +73,6 @@ joaogabrieldeluna@gmail.com
    tar -xf vosk-model-small-pt-0.3.zip
    del vosk-model-small-pt-0.3.zip
    ```
-   
-7. **Configurar a Chave de API:**
-   
-   - Ao executar a aplicação pela primeira vez, você será solicitado a inserir sua chave de API do Google AI.
-   
-   - A chave será salva automaticamente em um arquivo `chaves.env` para uso futuro.
 
 ## 🚀 Uso
 
@@ -91,6 +85,8 @@ python main.py
 
 * Os diretórios para os arquivos serão criados automaticamente no caminho inserido. Adicione o arquivo desejado no diretório correspondente
 * Siga o menu interativo para selecionar o tipo de arquivo que deseja processar. A saída será salva nas pastas `/transcriptions` e `/resumes`.
+* Ao executar a aplicação pela primeira vez, você será solicitado a inserir sua chave de API do Google AI. A chave será salva automaticamente em um arquivo `chaves.env` para uso futuro.
+* Ao executar a aplicação pela primeira vez, você também será solicitado a inserir um local para que a aplicação crie os diretórios de áudios, vídeos, transcrições e resumos. Após isso, o local será salvo no arquivo de configurações (`config.json`). Você pode manualmente alterar no próprio arquivo posteriormente, caso saiba o que está fazendo.
 
 ## 📄 Arquivos especiais
 
@@ -100,4 +96,4 @@ python main.py
   
 ## 💭 Feedback e Contribuição
 
-Sinta-se à vontade para abrir uma issue para relatar bugs ou solicitar recursos.
+Sinta-se à vontade para abrir uma issue para relatar bugs ou solicitar recursos. Todos estão convidados à participar e construir este projeto! ❤️
