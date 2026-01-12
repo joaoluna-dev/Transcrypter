@@ -94,7 +94,7 @@ python main.py
 
 ## 📄 Arquivos especiais
 
-* `config.json`: arquivo de configuração do modelo Gemini para sumarização das transcrições, com parâmetros de temperatura (nível de criatividade do modelo), candidate_count e model_config (modelo Gemini utilizado).
+* `config.json`: arquivo de configuração do modelo Gemini para sumarização das transcrições, e do software, com parâmetros de temperatura (nível de criatividade do modelo), candidate_count e model_config (modelo Gemini utilizado). Após o primeiro uso, o arquivo guarda a localização selecionada pelo usuário para guardar os arquivos de transcrição e resumo do software.
 * `requirements.txt`: arquivo com os requisitos para o funcionamento do Transcrypter.
 * `chaves.env`: arquivo criado após a primeira utilização do software, que contém a chave de acesso para o Gemini.
   
