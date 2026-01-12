@@ -5,3 +5,5 @@ pytubefix
 google-genai
 python-dotenv
 audioop-lts
+markdown-pdf
+
