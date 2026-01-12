@@ -7,8 +7,9 @@ try:
     from google import genai
     from google.genai.types import GenerateContentConfig, HttpOptions
     from google.genai.errors import ClientError, ServerError
+    from weasyprint import HTML, CSS
     from dotenv import load_dotenv
-    from markdown_pdf import MarkdownPdf, Section
+    import markdown
 
 except ModuleNotFoundError:
     print("Transcrypter - Módulos necessários para o resume_model.py: google-genai, os, sys, json, dotenv")
@@ -96,9 +97,8 @@ resume = gen_ai(config["temperature"], config["candidate_count"], text, config["
 
 #Escreve o resumo em markdown no arquivo .pdf criado
 try:
-    pdf = MarkdownPdf(toc_level=2, optimize=True)
-    pdf.add_section(Section(resume))
-    pdf.save(pdf_path)
+    texto_html = markdown.markdown(resume, extensions=['extra'])
+    HTML(string=texto_html).write_pdf(pdf_path)
     print("Transcrypter - Resumo escrito.")
 except Exception as e:
     print(f"Transcrypter - Erro inesperado durante a escrita do resumo: {e}")
