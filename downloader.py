@@ -10,11 +10,21 @@ except ModuleNotFoundError:
     print("Transcrypter - Instalação: pip install pytubefix")
     sys.exit(1)
 
+if len(sys.argv) != 3:
+    print("Transcrypter - Uso: python video_transcriptor.py files_path root_path")
+    sys.exit(1)
+
 files_path = sys.argv[1] #Diretório root passado como argumento no main.py
 root_path = sys.argv[2]
 
-# Solicita o link do usuário
-video_url = input("Transcrypter - Insira o link do vídeo: ")
+# Solicitação do link do YouTube ao usuário
+while True:
+    video_url = input("Transcrypter - Insira o link do vídeo: ")
+    if len(video_url) == 0:
+        print("Transcrypter - Por favor, insira um link de vídeo do youtube para continuar.")
+        continue
+    else:
+        break
 
 #Baixando o vídeo usando o pytubefix
 try:

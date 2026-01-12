@@ -6,7 +6,10 @@ import json
 try:
     from google import genai
     from google.genai.types import GenerateContentConfig, HttpOptions
+    from google.genai.errors import ClientError, ServerError
     from dotenv import load_dotenv
+    from markdown_pdf import MarkdownPdf, Section
+
 except ModuleNotFoundError:
     print("Transcrypter - Módulos necessários para o resume_model.py: google-genai, os, sys, json, dotenv")
     print("Transcrypter - Instalação: pip install google-genai os sys json dotenv")
@@ -36,12 +39,30 @@ def gen_ai(temp, candidate_count, text_transcript, model):
     #Chamada do modelo gemini, utilizando as configurações definidas pelo usuário, com a instrução adaptada para criar resumos de transcrições de áudio em estrutura markdown
     client = genai.Client(http_options=HttpOptions(api_version="v1"))
     system_instruction = "Você é um modelo especializado em analisar transcrições de áudio, criando arquivos em formato Markdown com todos os elementos das trancrições, com tópicos organizando o conteúdo. Tenha certeza de que todos o conteúdo estará contemplado nos resumos, eles devem estar o mais completos possível, para posterior estudo. Não inclua na resposta trechos como: 'Claro! Aqui está o resumo da transcrição da aula em formato Markdown, contemplando todo o conteúdo abordado.' e semelhantes, adicione apenas o conteúdo fornecido das transcrições."
-    response = client.models.generate_content(model=model,
-                                               contents=[system_instruction, text_transcript],
-                                               config=GenerateContentConfig(
-                                                   temperature=temp,
-                                                   candidate_count=candidate_count))
-    return response.text
+    try:
+        response = client.models.generate_content(model=model,
+                                                   contents=[system_instruction, text_transcript],
+                                                   config=GenerateContentConfig(
+                                                       temperature=temp,
+                                                       candidate_count=candidate_count))
+        return response.text
+    except ClientError as e:
+        if e.code == 429:
+            print("Transcrypter - Erro: Limite de cota da API atingido. O software não poderá resumir a transcrição.")
+            sys.exit(1)
+        else:
+            print(f"Transcrypter - Erro na API Gemini: {e}")
+            sys.exit(1)
+    except ServerError as e:
+        if e.code == 503:
+            print("Transcrypter - Erro: O serviço de IA está temporariamente sobrecarregado. Por favor, tente novamente em alguns minutos.")
+            sys.exit(1)
+        else:
+            print(f"Transcrypter - Erro no servidor Gemini: {e}")
+            sys.exit(1)
+    except Exception as e:
+        print(f"Transcrypter - Um erro inesperado ocorreu: {e}")
+        sys.exit(1)
 
 #------------------------------------------------#
 #Verifica se os argumentos foram passados corretamente (arquivo python, caminho do arquivo de resumo e caminho do arquivo de transcrição)
@@ -63,7 +84,7 @@ load_dotenv("chaves.env")
 
 txt_path = sys.argv[1] #Caminho do arquivo de transcrição
 filename = sys.argv[2] #Nome do arquivo, sem extensão e caminho
-md_path = os.path.join(resumes, f"{filename}.md") #Cria o arquivo .md, para escrita do resumo em markdown
+pdf_path = os.path.join(resumes, f"{filename}.pdf") #Cria o arquivo .pdf, para escrita do resumo em markdown
 
 #------------------------------------------------#
 #Leitura da transcrição do áudio
@@ -73,8 +94,11 @@ with open(txt_path, "r", encoding='utf-8') as transcription:
 config = get_config() #Obtenção das configurações do modelo gemini no arquivo config.json, que serão salvas no dicionário config
 resume = gen_ai(config["temperature"], config["candidate_count"], text, config["model_config"]) #Chamada da função que realiza o resumo da transcrição, usando as definições do arquivo config.json carregadas
 
-#Escreve o resumo em markdown no arquivo .md criado
-with open(md_path, "w+", encoding='utf-8') as md:
-    md.write(resume)
+#Escreve o resumo em markdown no arquivo .pdf criado
+try:
+    pdf = MarkdownPdf(toc_level=2, optimize=True)
+    pdf.add_section(Section(resume))
+    pdf.save(pdf_path)
     print("Transcrypter - Resumo escrito.")
-
+except Exception as e:
+    print(f"Transcrypter - Erro inesperado durante a escrita do resumo: {e}")

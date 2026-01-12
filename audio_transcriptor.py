@@ -9,8 +9,8 @@ try:
     from pydub import AudioSegment
     from vosk import Model, KaldiRecognizer, SetLogLevel
 except ModuleNotFoundError:
-    print("Transcrypter - Módulos necessários para o audio_transcriptor.py: pydub, os, sys, subprocess, pathlib e vosk")
-    print("Transcrypter - Instalação: pip install pydub, os, sys, subprocess, pathlib e vosk")
+    print("Transcrypter - Módulos necessários para o audio_transcriptor.py: pydub vosk")
+    print("Transcrypter - Instalação: pip install pydub vosk")
     sys.exit(1)
 
 #------------------------------------------------------------------------------------------------------------------------#
@@ -43,7 +43,7 @@ def transcript_audio_segment(audio_segment, model_path):
     #Verifica novamente se o modelo está presente
     if not os.path.exists(model_path):
         print(f"Transcrypter - Modelo vosk não encontrado em: '{model_path}'.")
-        print(f"Transcrypter - Baixe o modelo e coloque-o no diretório {model_path}.")
+        print(f"Transcrypter - Baixe o modelo corretamente, de acordo com as instruções do readme.")
         sys.exit(1)
 
     #Inicializa o modelo
@@ -53,7 +53,7 @@ def transcript_audio_segment(audio_segment, model_path):
 
     #Segmenta o áudio em pedaços menores (chunks) com no máximo 10 minutos, para facilitar a transcrição. Depois inicializa a trancrição de cada segmento. Após o término, a transcrição de cada segmento é salva na lista full_text.
     total_ms = len(audio_segment)
-    segment_ms = 600_000
+    segment_ms = 600_000 #10 minutos de áudio
     for start_ms in range(0, total_ms, segment_ms):
         end_ms = min(start_ms + segment_ms, total_ms)
         chunk = audio_segment[start_ms:end_ms]
@@ -69,8 +69,12 @@ def transcript_audio_segment(audio_segment, model_path):
         result = json.loads(rec.FinalResult())
         full_text.append(result.get("text", ""))
 
-    #Retorna o áudio unido em uma única string
-    return " ".join(full_text)
+    #Retorna o áudio unido em uma única string se houver conteúdo, caso contrário encerra o programa
+    if len(full_text) > 0:
+        return " ".join(full_text)
+    else:
+        print("Transcrypter - Erro: Não foi possível obter nenhuma transcrição do áudio fornecido.")
+        sys.exit(1)
 
 #-------------------------------------------------------------------------------------------------------------------#
 #Verifica se os argumentos foram passados corretamente (arquivo python, opção do tipo de áudio (mp3 ou wav) e caminho do arquivo de áudio)
@@ -90,11 +94,15 @@ videos = os.path.join(files_path, "videos")
 file_type = sys.argv[1]
 file_name = sys.argv[2]
 
-#Cria os arquivos que serão necessários
-filename = os.path.splitext(Path(file_name).name)[0] #Obtém o nome do arquivo de áudio, sem o caminho e a extensão
-wav_path = os.path.join(audios, f"{filename}.wav") #Cria o arquivo .wav, que é utilizado pelo vosk. Caso o arquivo de origem seja um mp3, ele será convertido em wav, que será escrito aqui
-txt_path = os.path.join(transcriptions, f"{filename}.txt") #Cria o arquivo de texto no qual será escrita a transcrição do áudio
-modelpath = os.path.join(root, "vosk-model-small-pt-0.3") #Passa o caminho do modelo Vosk, utilizado para fazer a transcrição
+#Cria os nomes dos arquivos que serão necessários
+try:
+    filename = os.path.splitext(Path(file_name).name)[0] #Obtém o nome do arquivo de áudio, sem o caminho e a extensão
+    wav_path = os.path.join(audios, f"{filename}.wav") #Caminho de referência para o arquivo .wav
+    txt_path = os.path.join(transcriptions, f"{filename}.txt") #Caminho do arquivo de texto para a transcrição
+    modelpath = os.path.join(root, "vosk-model-small-pt-0.3") #Caminho do modelo Vosk
+except Exception as e:
+    print(f"Transcrypter - Erro ao configurar caminhos de arquivos: {e}")
+    sys.exit(1)
 
 #Caso o o modelo vosk pt-br não exista no diretório
 if not os.path.exists(modelpath):
@@ -102,26 +110,37 @@ if not os.path.exists(modelpath):
     sys.exit(1)
 #-------------------------------------------------------------------------------------------------------------------------#
 #Caso o arquivo de origem seja um .mp3, ele será passado para a função convert_mp3_to_wav(), onde será convertido em .wav, logo após, a função de configuração set_sound() receberá o arquivo .wav criado para definir a frequência e o canal de som ideais para o modelo vosk trabalhar
-if file_type == "1":
-    wavfile = convert_mp3_to_wav(file_name)
-    correct_sound = set_sound(wavfile)
-    text = transcript_audio_segment(correct_sound, modelpath)
+try:
+    if file_type == "1":
+        wavfile = convert_mp3_to_wav(file_name)
+        correct_sound = set_sound(wavfile)
+        text = transcript_audio_segment(correct_sound, modelpath)
 
-#Caso o arquivo de origem seja um .wav, ele será passado diretamente para a função de configuração set_sound(), para definir a frequência e o canal de som ideais para o modelo vosk trabalhar
-elif file_type == "2":
-    wav = AudioSegment.from_file(os.path.join(audios, file_name))
-    correct_sound = set_sound(wav)
-    text = transcript_audio_segment(correct_sound, modelpath)
+    #Caso o arquivo de origem seja um .wav, ele será passado diretamente para a função de configuração set_sound(), para definir a frequência e o canal de som ideais para o modelo vosk trabalhar
+    elif file_type == "2":
+        wav = AudioSegment.from_file(file_name)
+        correct_sound = set_sound(wav)
+        text = transcript_audio_segment(correct_sound, modelpath)
 
-#Detecta arquivos de áudio inválidos
-else:
-    print(f"Transcrypter - Opção file_type inválida: {file_type}.")
+    #Detecta arquivos de áudio inválidos
+    else:
+        print(f"Transcrypter - Opção file_type inválida: {file_type}.")
+        sys.exit(1)
+except Exception as e:
+    print(f"Transcrypter - Erro ao carregar ou processar o arquivo de áudio: {e}")
     sys.exit(1)
 
 #Após a execução da função de conversão de áudio em texto Transcript_audio_segment(), a transcrição obtida será escrita no arquivo .txt criado anteriormente
 print(f"Transcrypter - Salvando transcrição em: {txt_path}")
-with open(txt_path, "w+", encoding='utf-8') as transcription:
-    transcription.write(text)
+try:
+    with open(txt_path, "w+", encoding='utf-8') as transcription:
+        transcription.write(text)
+except PermissionError:
+    print(f"Transcrypter - Erro: Permissão negada ao salvar a transcrição em '{txt_path}'.")
+    sys.exit(1)
+except OSError as e:
+    print(f"Transcrypter - Erro de sistema ao salvar transcrição: {e}")
+    sys.exit(1)
 
 #Faz a chamada do script responsável pelo resumo da transcrição criada, passando o arquivo da transcrição em .txt e o nome do arquivo original de áudio
 print("Transcrypter - Iniciando processo de resumo...")
