@@ -1,15 +1,17 @@
+import os
+import sys
+import subprocess
+import json
+from pathlib import Path
+
 #Tenta importar os módulos utilizados pelo script atual. Caso algum esteja ausente, o usuário é instado a baixar as biliotecas necessárias
 try:
     from pydub import AudioSegment
-    import os
-    import sys
-    import subprocess
-    import json
-    from pathlib import Path
     from vosk import Model, KaldiRecognizer, SetLogLevel
 except ModuleNotFoundError:
     print("Transcrypter - Módulos necessários para o audio_transcriptor.py: pydub, os, sys, subprocess, pathlib e vosk")
     print("Transcrypter - Instalação: pip install pydub, os, sys, subprocess, pathlib e vosk")
+    sys.exit(1)
 
 #------------------------------------------------------------------------------------------------------------------------#
 
@@ -72,16 +74,17 @@ def transcript_audio_segment(audio_segment, model_path):
 
 #-------------------------------------------------------------------------------------------------------------------#
 #Verifica se os argumentos foram passados corretamente (arquivo python, opção do tipo de áudio (mp3 ou wav) e caminho do arquivo de áudio)
-if len(sys.argv) != 3:
-    print("Transcrypter - Uso: python video_transcriptor.py option filename")
+if len(sys.argv) != 4:
+    print("Transcrypter - Uso: python video_transcriptor.py option filename files_path")
     sys.exit(1)
 
 #Diretórios usados pelo script
 root = os.path.dirname(os.path.abspath(__file__))
-audios = os.path.join(root, "audios")
-transcriptions = os.path.join(root, "transcriptions")
-resumes = os.path.join(root, "annotations")
-videos = os.path.join(root, "videos")
+files_path = sys.argv[3]
+audios = os.path.join(files_path, "audios")
+transcriptions = os.path.join(files_path, "transcriptions")
+resumes = os.path.join(files_path, "annotations")
+videos = os.path.join(files_path, "videos")
 
 #Obtém a opção do tipo de áudio selecionado (mp3 ou wav) e o caminho do arquivo de áudio
 file_type = sys.argv[1]
@@ -122,6 +125,6 @@ with open(txt_path, "w+", encoding='utf-8') as transcription:
 
 #Faz a chamada do script responsável pelo resumo da transcrição criada, passando o arquivo da transcrição em .txt e o nome do arquivo original de áudio
 print("Transcrypter - Iniciando processo de resumo...")
-subprocess.run(["python", "resume_model.py", txt_path, filename])
+subprocess.run(["python", "resume_model.py", txt_path, filename, files_path])
 
 

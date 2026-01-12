@@ -1,14 +1,16 @@
+import os
+import sys
+import json
+
 #Tenta importar os módulos utilizados pelo script atual. Caso algum esteja ausente, o usuário é instado a baixar as biliotecas necessárias
 try:
     from google import genai
     from google.genai.types import GenerateContentConfig, HttpOptions
-    import os
-    import sys
-    import json
     from dotenv import load_dotenv
 except ModuleNotFoundError:
     print("Transcrypter - Módulos necessários para o resume_model.py: google-genai, os, sys, json, dotenv")
     print("Transcrypter - Instalação: pip install google-genai os sys json dotenv")
+    sys.exit(1)
 
 
 def get_config():
@@ -43,16 +45,17 @@ def gen_ai(temp, candidate_count, text_transcript, model):
 
 #------------------------------------------------#
 #Verifica se os argumentos foram passados corretamente (arquivo python, caminho do arquivo de resumo e caminho do arquivo de transcrição)
-if len(sys.argv) != 3:
-    print("Transcrypter - Uso: python resume_model.py caminho_transcrição nome_arquivo")
+if len(sys.argv) != 4:
+    print("Transcrypter - Uso: python resume_model.py caminho_transcrição nome_arquivo files_path")
     sys.exit(1)
 
 #Diretórios utilizados pelo script
 root = os.path.dirname(os.path.abspath(__file__))
-audios = os.path.join(root, "audios")
-transcriptions = os.path.join(root, "transcriptions")
-resumes = os.path.join(root, "resumes")
-videos = os.path.join(root, "videos")
+files_path = sys.argv[3]
+audios = os.path.join(files_path, "audios")
+transcriptions = os.path.join(files_path, "transcriptions")
+resumes = os.path.join(files_path, "resumes")
+videos = os.path.join(files_path, "videos")
 
 #Carregamento do arquivo com a API key gemini
 load_dotenv("chaves.env")

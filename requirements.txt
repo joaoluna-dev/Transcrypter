@@ -1,9 +1,7 @@
-#Elementos de transcrição
-pydub 
-vosk 
-moviepy 
+pydub
+vosk
+moviepy
 pytubefix
-
-#IA generativa
-google-genai 
-python-dotenv 
+google-genai
+python-dotenv
+audioop-lts

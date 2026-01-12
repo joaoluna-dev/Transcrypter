@@ -10,7 +10,8 @@ except ModuleNotFoundError:
     print("Transcrypter - Instalação: pip install pytubefix")
     sys.exit(1)
 
-root_path = sys.argv[1] #Diretório root passado como argumento no main.py
+files_path = sys.argv[1] #Diretório root passado como argumento no main.py
+root_path = sys.argv[2]
 
 # Solicita o link do usuário
 video_url = input("Transcrypter - Insira o link do vídeo: ")
@@ -23,7 +24,7 @@ try:
     stream = yt.streams.get_highest_resolution()
     
     print(f"Transcrypter - Baixando: {title}...")
-    stream.download(output_path="./videos") #Salva o vídeo no diretório videos
+    stream.download(output_path=os.path.join(files_path, "videos")) #Salva o vídeo no diretório videos
     print("Transcrypter - Download completo!")
 
 except Exception as e:
@@ -34,9 +35,9 @@ selection = input("Transcrypter - Você deseja transcrever o vídeo baixado? (y/
 
 if selection == "y":
     mp4file = f"{title}.mp4"
-    videos = os.path.join(root_path, "videos")
+    videos = os.path.join(files_path, "videos")
     mp4path = os.path.join(videos, mp4file)
-    subprocess.run(["python", "video_transcriptor.py", mp4path], cwd=root_path)
+    subprocess.run(["python", "video_transcriptor.py", mp4path, files_path], cwd=root_path)
 elif selection == "n":
     sys.exit(1)
 else:
