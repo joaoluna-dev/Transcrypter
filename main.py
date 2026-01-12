@@ -40,6 +40,21 @@ def menu_select(option, root_path, _files_path_):
         sys.exit(1)
 
 #---------------------------------------------------------------------------------------------------------------------------------"
+#Diretório raiz
+root = os.path.dirname(os.path.abspath(__file__))
+
+#Verifica se o arquivo de configurações está presente, caso contrário, cria um novo com parâmetros pré-definidos
+if not os.path.exists(os.path.join(root, "config.json")):
+    basic_config = {
+    "temperature": 0.5,
+    "candidate_count": 1,
+    "model_config": "gemini-2.5-flash",
+    }
+    with open("config.json", "w") as config_file:
+        config_file.seek(0)
+        json.dump(basic_config, config_file, indent=4)
+        config_file.truncate()
+
 #Obtendo configurações previamente utilizadas pelo usuário
 with open("config.json", "r+") as js:
     dic = json.load(js)
@@ -56,7 +71,6 @@ with open("config.json", "r+") as js:
         print(f"Transcrypter - Os arquivos serão salvos em: {files_path}.")
 
 #Diretórios utilizados pelo software
-root = os.path.dirname(os.path.abspath(__file__))
 if not os.path.exists(files_path):
     os.mkdir(files_path)
 audios = os.path.join(files_path, "audios")
