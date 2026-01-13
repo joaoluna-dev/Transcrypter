@@ -23,7 +23,7 @@ joaogabrieldeluna@gmail.com
 * ffmpeg (https://www.gyan.dev/ffmpeg/builds/)
 * Chave de API Gemini (https://aistudio.google.com/apikey)
 * Modelo Vosk para reconhecimento de voz offline (https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip)
-* O software solicita dados de um navegador disponível no sistema operacional para realizar o download de vídeos do youtube. Para os usuários do MacOS, devido à limitações de segurança do Safari, utilize um outro navegador quando solicitado.
+* O software solicita dados de um navegador disponível no sistema operacional para realizar o download de vídeos do youtube. Você deve estar logado em uma conta google no navegador selecionado para continuar.
 
 ## ⬇️ Instalação
 
