@@ -19,7 +19,7 @@ joaogabrieldeluna@gmail.com
 
 ## ⚠️ Requisitos
 
-* Python 3.x - Testado em python 3.14 e 3.12 (https://www.python.org/downloads/)
+* Python >= 3.10 (https://www.python.org/downloads/)
 * ffmpeg (https://www.gyan.dev/ffmpeg/builds/)
 * Chave de API Gemini (https://aistudio.google.com/apikey)
 * Modelo Vosk para reconhecimento de voz offline (https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip)
