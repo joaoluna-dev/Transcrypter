@@ -1,7 +1,7 @@
 pydub
 vosk
 moviepy
-pytubefix
+yt-dlp
 google-genai
 python-dotenv
 audioop-lts
