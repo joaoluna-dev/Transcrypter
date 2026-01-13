@@ -32,8 +32,8 @@ while True:
 #Estes dados não são armazenados no Transcrypter após o uso, apenas utilizados pelo yt-dpl para download de conteúdo da plataforma Youtube. \
 #Para mais informações, acesse: https://github.com/yt-dlp/yt-dlp.
 while True:
-    supported_browsers = ['brave', 'chrome', 'chromium', 'edge', 'firefox', 'opera', 'safari', 'vivaldi', 'whale']
-    browser = input("Transcrypter - Insira o nome do navegador de internet de preferência do seu computador. Você precisa estar logado em uma conta google neste navegador. (suportados: brave, chrome, chromium, edge, firefox, opera, safari, vivaldi, whale): ").lower()
+    supported_browsers = ['brave', 'chrome', 'chromium', 'edge', 'firefox', 'opera', 'vivaldi', 'whale']
+    browser = input("Transcrypter - Insira o nome do navegador de internet de preferência do seu computador. Você precisa estar logado em uma conta google neste navegador. (suportados: brave, chrome, chromium, edge, firefox, opera, vivaldi, whale): ").lower()
     if len(browser) == 0:
         print("Transcrypter - Por favor, insira um nome de navegador para continuar.")
         continue
@@ -78,4 +78,5 @@ elif selection == "n":
     sys.exit(1)
 else:
     print(f"Transcrypter - Seleção inválida: {selection}")
+
     sys.exit(1)
