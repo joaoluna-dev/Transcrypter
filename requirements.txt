@@ -2,6 +2,7 @@ pydub
 vosk
 moviepy
 yt-dlp
+secretstorage; sys_platform == 'linux'
 google-genai
 python-dotenv
 audioop-lts
