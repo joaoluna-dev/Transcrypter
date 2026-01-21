@@ -51,6 +51,10 @@ def gen_ai(temp, candidate_count, text_transcript, model):
         if e.code == 429:
             print("Transcrypter - Erro: Limite de cota da API atingido. O software não poderá resumir a transcrição.")
             sys.exit(1)
+        if e.code == 400:
+            print("Transcrypter - Chave de API inválida. Gere uma nova chave em https://aistudio.google.com/apikey e tente novamente.")
+            os.remove("chaves.env")
+            sys.exit(1)
         else:
             print(f"Transcrypter - Erro na API Gemini: {e}")
             sys.exit(1)
