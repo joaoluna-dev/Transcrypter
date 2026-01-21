@@ -23,7 +23,7 @@ joaogabrieldeluna@gmail.com
 * ffmpeg (https://www.gyan.dev/ffmpeg/builds/)
 * Chave de API Gemini (https://aistudio.google.com/apikey)
 * Modelo Vosk para reconhecimento de voz offline (https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip)
-* O software solicita dados de um navegador disponível no sistema operacional para realizar o download de vídeos do youtube. Você deve estar logado em uma conta google no navegador selecionado para continuar.
+* ⚠️ Para utilizar a funcionalidade de download de vídeos do YouTube, tenha em mente que você deve obter autorização do seu criador para baixar-lo. Não nos responsabilizamos por violações de direitos autorais pelos usuários. ⚠️
 
 ## ⬇️ Instalação
 
@@ -93,7 +93,7 @@ python main.py
 
 * `config.json`: arquivo de configuração do modelo Gemini para sumarização das transcrições, e do software, com parâmetros de temperatura (nível de criatividade do modelo), candidate_count e model_config (modelo Gemini utilizado). Após o primeiro uso, o arquivo guarda a localização selecionada pelo usuário para guardar os arquivos de transcrição e resumo do software.
 * `requirements.txt`: arquivo com os requisitos para o funcionamento do Transcrypter.
-* `chaves.env`: arquivo criado após a primeira utilização do software, que contém a chave de acesso para o Gemini.
+* `chaves.env`: arquivo criado após a primeira utilização do software, que contém a chave de acesso para o Gemini. NUNCA COMPARTILHE A SUA CHAVE COM NINGUÉM.
   
 ## 💭 Feedback e Contribuição
 

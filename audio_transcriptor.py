@@ -144,6 +144,4 @@ except OSError as e:
 
 #Faz a chamada do script responsável pelo resumo da transcrição criada, passando o arquivo da transcrição em .txt e o nome do arquivo original de áudio
 print("Transcrypter - Iniciando processo de resumo...")
-subprocess.run(["python", "resume_model.py", txt_path, filename, files_path])
-
-
+subprocess.run(["python", "resume_model.py", txt_path, filename, files_path]) 

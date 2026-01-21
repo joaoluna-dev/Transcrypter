@@ -20,6 +20,7 @@ videos = os.path.join(files_path, "videos")
 
 # Solicitação do link do YouTube ao usuário
 while True:
+    print("Transcrypter - Você deve obter autorização do autor do vídeo para poder baixar-lo. Não nos responsabilizamos por violações de direitos autorais cometidas por usuários.")
     video_url = input("Transcrypter - Insira o link do vídeo: ")
     if len(video_url) == 0:
         print("Transcrypter - Por favor, insira um link de vídeo do youtube para continuar.")
@@ -27,37 +28,25 @@ while True:
     else:
         break
 
-#Solicitação do navegador de preferência do usuário
-#Esta opção é necessária para baixar vídeos com restrição de idade e região. \
-#Estes dados não são armazenados no Transcrypter após o uso, apenas utilizados pelo yt-dpl para download de conteúdo da plataforma Youtube. \
-#Para mais informações, acesse: https://github.com/yt-dlp/yt-dlp.
-while True:
-    supported_browsers = ['brave', 'chrome', 'chromium', 'edge', 'firefox', 'opera', 'vivaldi', 'whale']
-    browser = input("Transcrypter - Insira o nome do navegador de internet de preferência do seu computador. Você precisa estar logado em uma conta google neste navegador. (suportados: brave, chrome, chromium, edge, firefox, opera, vivaldi, whale): ").lower()
-    if len(browser) == 0:
-        print("Transcrypter - Por favor, insira um nome de navegador para continuar.")
-        continue
-    if browser not in supported_browsers:
-        print(f"Transcrypter - o navegador {browser} não é suportado pelo software. Insira outro")
-    else:
-        break
-
-
 #Baixando o vídeo usando o yt-dlp
 try:
     options = {
-        'format': 'best', #O melhor formato para o vídeo, com áudio e vídeo unidos
+        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best', #O melhor formato para o vídeo, que baixa audio e videos separados, e une posteriormente.
         'paths': {'home': videos}, #Caminho para o vídeo, no diretório /videos
         'outtmpl': '%(title)s.%(ext)s', #Indica que o nome do arquivo deve ser o nome original do vídeo no YouTube, de extensão .mp4
         'quiet': True, #Não exibe mensagens no console do usuário
         'no_warnings': True, #Não exibe alertas de nível baixo, apenas erros graves
         'restrictfilenames': True, #Remove caracteres especiais do nome do arquivo
 
+        'extractor_args': {
+        'youtube': {
+            'player_client': ['android', 'web'] #Simula que o pedido vem de um app Android ou Web player legítimo
+            }
+        },
 
-        'cookiesfrombrowser': (browser,)
-        #Obtenção dos cookies do navegador do usuário para acessar o YouTube. Esta opção é necessária para baixar vídeos com restrição de idade e região. \
-        #Estes dados não são armazenados no Transcrypter após o uso, apenas utilizados pelo yt-dpl para download de conteúdo da plataforma Youtube. \
-        #Para mais informações, acesse: https://github.com/yt-dlp/yt-dlp.
+        'retries': 10, #Tenta novamente o download 10 vezes se der erro durante à conexão
+        'fragment_retries': 10, #Tenta novamente o download 10 vezes se ele falhar num pedaço específico do video
+        'socket_timeout': 30 #Espera 30s antes de retornar um Time out, em caso de conexões lentas.
     }
 
     with yt.YoutubeDL(options) as ydl:
@@ -65,8 +54,44 @@ try:
         mp4file = ydl.prepare_filename(info)
 
 except Exception as e:
-    print(f"Transcrypter - Um erro ocorreu durante o download do vídeo: {e}")
-    sys.exit(1)
+    e = str(e)
+    if 'confirm your age' in e:
+        print("Transcrypter - Vídeo com restrição de idade detectado. Atualmente, o Transcrypter não possui suporte à download direto de vídeos desta modalidade.")
+        sys.exit(1)
+    elif 'country' in e:
+        print("Transcrypter - Vídeo com restrição de região (geoblock) detectado. Atualmente, o Transcrypter não possui suporte à download direto de vídeos desta modalidade.")
+        sys.exit(1)
+    elif 'This helps protect our community' in e:
+        print("Transcrypter - Proteção antibots detectada. Tente novamente em alguns minutos, ou use uma VPN.")
+        sys.exit(1)
+    elif "player responses are invalid" in e:
+        print("Transcrypter - Provável bloqueio de IP do usuário. Tente novamente em alguns minutos, ou use uma VPN.")
+        sys.exit(1)
+    elif "DRM" in e or "drm" in e:
+        print("Transcrypter - Vídeo com proteção anti-pirataria. Tente novamente com outro vídeo.")
+        sys.exit(1)
+    elif "truncated_id" in e:
+        print("Transcrypter - Vídeo com URL incompleta. Tente novamente.")
+        sys.exit(1)
+    elif "unavailable" in e:
+        print("Transcrypter - Vídeo indisponível. Cheque o link inserido e tente novamente.")
+        sys.exit(1)
+    elif "HTTP error" in e:
+        if "404" in e:
+            print("Transcrypter - Vídeo não encontrado. Tente novamente com outro vídeo.")
+            sys.exit(1)
+        if "403" in e:
+            print("Transcrypter - Acesso negado. Tente novamente mais tarde, em outro dispositivo, ou utilizando uma VPN.")
+            sys.exit(1)
+        if "502" in e or "503" in e or "504" in e:
+            print("Transcrypter - Erro de servidor. Tente novamente mais tarde, em outro dispositivo, ou utilizando uma VPN.")
+            sys.exit(1)
+        else:
+            print(f"Transcrypter - Erro desconhecido durante a requisição: {e}.")
+            sys.exit(1)
+    else:
+        print(f"Transcrypter - Um erro desconhecido ocorreu durante o download do vídeo: {e}")
+        sys.exit(1)
 
 selection = input("Transcrypter - Você deseja transcrever o vídeo baixado? (y/n): ").lower()
 
