@@ -10,7 +10,7 @@
 
 ## ℹ️ Visão Geral
 
-O SummaVox é uma ferramenta baseada em Python projetada para automatizar o processo de transcrição de arquivos de áudio e vídeo e gerar resumos concisos a partir das transcrições. Ele utiliza a biblioteca Vosk para reconhecimento de fala offline e a IA Gemini do Google para sumarização. O modelo utilizado está disponível em https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip. O objetivo deste projeto é ajudar principalmente estudantes e profissionais, que lidam com a tarefa de realizar anotações diariamente.
+O SummaVox é uma ferramenta baseada em Python projetada para automatizar o processo de transcrição de arquivos de áudio e vídeo e gerar resumos concisos a partir das transcrições. Ele utiliza a biblioteca Vosk para reconhecimento de fala offline e a IA Gemini do Google para sumarização. O modelo utilizado está disponível em https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip, sob licença Apache 2.0 e autoria de Alpha Cephei. O objetivo deste projeto é ajudar principalmente estudantes e profissionais, que lidam com a tarefa de realizar anotações diariamente.
 
 ### ✍️ Autores
 
@@ -68,6 +68,8 @@ joaogabrieldeluna@gmail.com
 
 5. **Instalação do modelo Vosk em português**
 
+   - **Caso você tenha baixado a versão portátil, disponível na página de Releases, pule esta etapa.**
+     
    - Acesse a pasta do SummaVox pelo terminal e execute:
   * Linux e MacOS
    ```bash
