@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
         # Verifica se o arquivo de configurações está presente, caso contrário, cria um novo com parâmetros pré-definidos
         try:
-            if not os.path.exists(os.path.join(root, "config.json')):
+            if not os.path.exists(os.path.join(root, "config.json")):
                 basic_config = {
                     "temperature": 0.5,
                     "candidate_count": 1,
@@ -120,7 +120,7 @@ if __name__ == '__main__':
 
         # Verifica se já existe um arquivo .env com chaves de API Gemini, caso contrário, verifica o usuário possui uma chave de API gemini, e pede para inserir-la, após isso, cria o arquivo .env automaticamente
         try:
-            if not os.path.exists(os.path.join(root, "chaves.env')):
+            if not os.path.exists(os.path.join(root, "chaves.env")):
                 api_key = input(
                     "SummaVox - Insira a sua chave de API Gemini (Para mais informações, consulte: https://aistudio.google.com/apikey): ")
                 with open("chaves.env", "w") as chaves:
