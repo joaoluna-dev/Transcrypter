@@ -1,4 +1,4 @@
-# 📦 Transcrypter
+# 📦 SummaVox
 
 ## 🌟 Destaques
 
@@ -10,7 +10,7 @@
 
 ## ℹ️ Visão Geral
 
-O Transcryptor é uma ferramenta baseada em Python projetada para automatizar o processo de transcrição de arquivos de áudio e vídeo e gerar resumos concisos a partir das transcrições. Ele utiliza a biblioteca Vosk para reconhecimento de fala offline e a IA Gemini do Google para sumarização. O modelo utilizado está disponível em https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip.
+O SummaVox é uma ferramenta baseada em Python projetada para automatizar o processo de transcrição de arquivos de áudio e vídeo e gerar resumos concisos a partir das transcrições. Ele utiliza a biblioteca Vosk para reconhecimento de fala offline e a IA Gemini do Google para sumarização. O modelo utilizado está disponível em https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip.
 
 ### ✍️ Autores
 
@@ -92,7 +92,7 @@ python main.py
 ## 📄 Arquivos especiais
 
 * `config.json`: arquivo de configuração do modelo Gemini para sumarização das transcrições, e do software, com parâmetros de temperatura (nível de criatividade do modelo), candidate_count e model_config (modelo Gemini utilizado). Após o primeiro uso, o arquivo guarda a localização selecionada pelo usuário para guardar os arquivos de transcrição e resumo do software.
-* `requirements.txt`: arquivo com os requisitos para o funcionamento do Transcrypter.
+* `requirements.txt`: arquivo com os requisitos para o funcionamento do SummaVox.
 * `chaves.env`: arquivo criado após a primeira utilização do software, que contém a chave de acesso para o Gemini. NUNCA COMPARTILHE A SUA CHAVE COM NINGUÉM.
   
 ## 💭 Feedback e Contribuição

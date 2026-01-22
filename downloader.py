@@ -6,12 +6,12 @@ import subprocess
 try:
     import yt_dlp as yt
 except ModuleNotFoundError:
-    print("Transcrypter - Módulos necessários para o downloader.py: pytubefix")
-    print("Transcrypter - Instalação: pip install pytubefix")
+    print("SummaVox - Módulos necessários para o downloader.py: pytubefix")
+    print("SummaVox - Instalação: pip install pytubefix")
     sys.exit(1)
 
 if len(sys.argv) != 3:
-    print("Transcrypter - Uso: python video_transcriptor.py files_path root_path")
+    print("SummaVox - Uso: python video_transcriptor.py files_path root_path")
     sys.exit(1)
 
 files_path = sys.argv[1] #Diretório root passado como argumento no main.py
@@ -20,10 +20,10 @@ videos = os.path.join(files_path, "videos")
 
 # Solicitação do link do YouTube ao usuário
 while True:
-    print("Transcrypter - Você deve obter autorização do autor do vídeo para poder baixar-lo. Não nos responsabilizamos por violações de direitos autorais cometidas por usuários.")
-    video_url = input("Transcrypter - Insira o link do vídeo: ")
+    print("SummaVox - Você deve obter autorização do autor do vídeo para poder baixar-lo. Não nos responsabilizamos por violações de direitos autorais cometidas por usuários.")
+    video_url = input("SummaVox - Insira o link do vídeo: ")
     if len(video_url) == 0:
-        print("Transcrypter - Por favor, insira um link de vídeo do youtube para continuar.")
+        print("SummaVox - Por favor, insira um link de vídeo do youtube para continuar.")
         continue
     else:
         break
@@ -56,44 +56,44 @@ try:
 except Exception as e:
     e = str(e)
     if 'confirm your age' in e:
-        print("Transcrypter - Vídeo com restrição de idade detectado. Atualmente, o Transcrypter não possui suporte à download direto de vídeos desta modalidade.")
+        print("SummaVox - Vídeo com restrição de idade detectado. Atualmente, o SummaVox não possui suporte à download direto de vídeos desta modalidade.")
         sys.exit(1)
     elif 'country' in e:
-        print("Transcrypter - Vídeo com restrição de região (geoblock) detectado. Atualmente, o Transcrypter não possui suporte à download direto de vídeos desta modalidade.")
+        print("SummaVox - Vídeo com restrição de região (geoblock) detectado. Atualmente, o SummaVox não possui suporte à download direto de vídeos desta modalidade.")
         sys.exit(1)
     elif 'This helps protect our community' in e:
-        print("Transcrypter - Proteção antibots detectada. Tente novamente em alguns minutos, ou use uma VPN.")
+        print("SummaVox - Proteção antibots detectada. Tente novamente em alguns minutos, ou use uma VPN.")
         sys.exit(1)
     elif "player responses are invalid" in e:
-        print("Transcrypter - Provável bloqueio de IP do usuário. Tente novamente em alguns minutos, ou use uma VPN.")
+        print("SummaVox - Provável bloqueio de IP do usuário. Tente novamente em alguns minutos, ou use uma VPN.")
         sys.exit(1)
     elif "DRM" in e or "drm" in e:
-        print("Transcrypter - Vídeo com proteção anti-pirataria. Tente novamente com outro vídeo.")
+        print("SummaVox - Vídeo com proteção anti-pirataria. Tente novamente com outro vídeo.")
         sys.exit(1)
     elif "truncated_id" in e:
-        print("Transcrypter - Vídeo com URL incompleta. Tente novamente.")
+        print("SummaVox - Vídeo com URL incompleta. Tente novamente.")
         sys.exit(1)
     elif "unavailable" in e:
-        print("Transcrypter - Vídeo indisponível. Cheque o link inserido e tente novamente.")
+        print("SummaVox - Vídeo indisponível. Cheque o link inserido e tente novamente.")
         sys.exit(1)
     elif "HTTP error" in e:
         if "404" in e:
-            print("Transcrypter - Vídeo não encontrado. Tente novamente com outro vídeo.")
+            print("SummaVox - Vídeo não encontrado. Tente novamente com outro vídeo.")
             sys.exit(1)
         if "403" in e:
-            print("Transcrypter - Acesso negado. Tente novamente mais tarde, em outro dispositivo, ou utilizando uma VPN.")
+            print("SummaVox - Acesso negado. Tente novamente mais tarde, em outro dispositivo, ou utilizando uma VPN.")
             sys.exit(1)
         if "502" in e or "503" in e or "504" in e:
-            print("Transcrypter - Erro de servidor. Tente novamente mais tarde, em outro dispositivo, ou utilizando uma VPN.")
+            print("SummaVox - Erro de servidor. Tente novamente mais tarde, em outro dispositivo, ou utilizando uma VPN.")
             sys.exit(1)
         else:
-            print(f"Transcrypter - Erro desconhecido durante a requisição: {e}.")
+            print(f"SummaVox - Erro desconhecido durante a requisição: {e}.")
             sys.exit(1)
     else:
-        print(f"Transcrypter - Um erro desconhecido ocorreu durante o download do vídeo: {e}")
+        print(f"SummaVox - Um erro desconhecido ocorreu durante o download do vídeo: {e}")
         sys.exit(1)
 
-selection = input("Transcrypter - Você deseja transcrever o vídeo baixado? (y/n): ").lower()
+selection = input("SummaVox - Você deseja transcrever o vídeo baixado? (y/n): ").lower()
 
 if selection == "y":
     videos = os.path.join(files_path, "videos")
@@ -102,6 +102,6 @@ if selection == "y":
 elif selection == "n":
     sys.exit(1)
 else:
-    print(f"Transcrypter - Seleção inválida: {selection}")
+    print(f"SummaVox - Seleção inválida: {selection}")
 
     sys.exit(1)

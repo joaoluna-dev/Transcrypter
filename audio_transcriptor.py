@@ -9,8 +9,8 @@ try:
     from pydub import AudioSegment
     from vosk import Model, KaldiRecognizer, SetLogLevel
 except ModuleNotFoundError:
-    print("Transcrypter - Módulos necessários para o audio_transcriptor.py: pydub vosk")
-    print("Transcrypter - Instalação: pip install pydub vosk")
+    print("SummaVox - Módulos necessários para o audio_transcriptor.py: pydub vosk")
+    print("SummaVox - Instalação: pip install pydub vosk")
     sys.exit(1)
 
 #------------------------------------------------------------------------------------------------------------------------#
@@ -20,7 +20,7 @@ def convert_mp3_to_wav(mp3file):
     :param mp3file: nome do arquivo .mp3 que será convertido em .wav
     :return: arquivo .wav
     """
-    print("Transcrypter - Convertendo áudio de .mp3 para .wav...")
+    print("SummaVox - Convertendo áudio de .mp3 para .wav...")
     sound = AudioSegment.from_mp3(mp3file)
     return sound
 
@@ -29,7 +29,7 @@ def set_sound(sound):
     :param sound: arquivo de áudio .wav original
     :return: arquivo de áudio .wav com canal e frame rate configurados, para melhor eficiência do vosk
     """
-    print("Transcrypter - Ajustando canais e frequência do áudio...")
+    print("SummaVox - Ajustando canais e frequência do áudio...")
     sound = sound.set_channels(1)
     sound = sound.set_frame_rate(16000)
     return sound
@@ -42,12 +42,12 @@ def transcript_audio_segment(audio_segment, model_path):
     """
     #Verifica novamente se o modelo está presente
     if not os.path.exists(model_path):
-        print(f"Transcrypter - Modelo vosk não encontrado em: '{model_path}'.")
-        print(f"Transcrypter - Baixe o modelo corretamente, de acordo com as instruções do readme.")
+        print(f"SummaVox - Modelo vosk não encontrado em: '{model_path}'.")
+        print(f"SummaVox - Baixe o modelo corretamente, de acordo com as instruções do readme.")
         sys.exit(1)
 
     #Inicializa o modelo
-    print("Transcrypter - Inicializando modelo...")
+    print("SummaVox - Inicializando modelo...")
     model = Model(model_path)
     full_text = []
 
@@ -61,7 +61,7 @@ def transcript_audio_segment(audio_segment, model_path):
         rec = KaldiRecognizer(model, audio_segment.frame_rate)
         rec.SetWords(True)
 
-        print(f"Transcrypter - Transcrevendo segmento {start_ms / 1000 / 60:.1f}–{end_ms / 1000 / 60:.1f} min…")
+        print(f"SummaVox - Transcrevendo segmento {start_ms / 1000 / 60:.1f}–{end_ms / 1000 / 60:.1f} min…")
         data = chunk.raw_data
         for i in range(0, len(data), 4000):
             rec.AcceptWaveform(data[i:i + 4000])
@@ -73,13 +73,13 @@ def transcript_audio_segment(audio_segment, model_path):
     if len(full_text) > 0:
         return " ".join(full_text)
     else:
-        print("Transcrypter - Erro: Não foi possível obter nenhuma transcrição do áudio fornecido.")
+        print("SummaVox - Erro: Não foi possível obter nenhuma transcrição do áudio fornecido.")
         sys.exit(1)
 
 #-------------------------------------------------------------------------------------------------------------------#
 #Verifica se os argumentos foram passados corretamente (arquivo python, opção do tipo de áudio (mp3 ou wav) e caminho do arquivo de áudio)
 if len(sys.argv) != 4:
-    print("Transcrypter - Uso: python video_transcriptor.py option filename files_path")
+    print("SummaVox - Uso: python video_transcriptor.py option filename files_path")
     sys.exit(1)
 
 #Diretórios usados pelo script
@@ -101,12 +101,12 @@ try:
     txt_path = os.path.join(transcriptions, f"{filename}.txt") #Caminho do arquivo de texto para a transcrição
     modelpath = os.path.join(root, "vosk-model-small-pt-0.3") #Caminho do modelo Vosk
 except Exception as e:
-    print(f"Transcrypter - Erro ao configurar caminhos de arquivos: {e}")
+    print(f"SummaVox - Erro ao configurar caminhos de arquivos: {e}")
     sys.exit(1)
 
 #Caso o o modelo vosk pt-br não exista no diretório
 if not os.path.exists(modelpath):
-    print("Transcrypter - Modelo de transcrição não localizado. Baixe-o em https://alphacephei.com/vosk/models e extraia seu conteúdo na pasta root")
+    print("SummaVox - Modelo de transcrição não localizado. Baixe-o em https://alphacephei.com/vosk/models e extraia seu conteúdo na pasta root")
     sys.exit(1)
 #-------------------------------------------------------------------------------------------------------------------------#
 #Caso o arquivo de origem seja um .mp3, ele será passado para a função convert_mp3_to_wav(), onde será convertido em .wav, logo após, a função de configuração set_sound() receberá o arquivo .wav criado para definir a frequência e o canal de som ideais para o modelo vosk trabalhar
@@ -124,24 +124,24 @@ try:
 
     #Detecta arquivos de áudio inválidos
     else:
-        print(f"Transcrypter - Opção file_type inválida: {file_type}.")
+        print(f"SummaVox - Opção file_type inválida: {file_type}.")
         sys.exit(1)
 except Exception as e:
-    print(f"Transcrypter - Erro ao carregar ou processar o arquivo de áudio: {e}")
+    print(f"SummaVox - Erro ao carregar ou processar o arquivo de áudio: {e}")
     sys.exit(1)
 
 #Após a execução da função de conversão de áudio em texto Transcript_audio_segment(), a transcrição obtida será escrita no arquivo .txt criado anteriormente
-print(f"Transcrypter - Salvando transcrição em: {txt_path}")
+print(f"SummaVox - Salvando transcrição em: {txt_path}")
 try:
     with open(txt_path, "w+", encoding='utf-8') as transcription:
         transcription.write(text)
 except PermissionError:
-    print(f"Transcrypter - Erro: Permissão negada ao salvar a transcrição em '{txt_path}'.")
+    print(f"SummaVox - Erro: Permissão negada ao salvar a transcrição em '{txt_path}'.")
     sys.exit(1)
 except OSError as e:
-    print(f"Transcrypter - Erro de sistema ao salvar transcrição: {e}")
+    print(f"SummaVox - Erro de sistema ao salvar transcrição: {e}")
     sys.exit(1)
 
 #Faz a chamada do script responsável pelo resumo da transcrição criada, passando o arquivo da transcrição em .txt e o nome do arquivo original de áudio
-print("Transcrypter - Iniciando processo de resumo...")
-subprocess.run(["python", "resume_model.py", txt_path, filename, files_path]) 
+print("SummaVox - Iniciando processo de resumo...")
+subprocess.run(["python", "resume_model.py", txt_path, filename, files_path])
