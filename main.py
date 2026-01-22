@@ -50,6 +50,7 @@ def menu_select(option, root_path, _files_path_):
 if __name__ == '__main__':
     while True:
         print("SummaVox v0.1.0-alpha: uma ferramenta aberta e gratuita para audio e vídeo.")
+        print("SummaVox - Você deve obter consentimento expresso pelo criador do áudio/vídeo para transcrever e sumarizar o seu conteúdo. Não nos responsabilizamos por violações de direitos autorais por parte dos usuários.")
         # Diretório raiz
         root = os.path.dirname(os.path.abspath(__file__))
 
