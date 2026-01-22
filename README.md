@@ -88,6 +88,7 @@ joaogabrieldeluna@gmail.com
 *Execute a aplicação a partir do diretório raiz do projeto, acessando-o pelo terminal:*
 
 ```bash
+cd caminho_para_a_pasta_do_SummaVox
 python main.py
 ```
 
