@@ -27,63 +27,72 @@ joaogabrieldeluna@gmail.com
 
 ## ⬇️ Instalação
 
-1. Instale o Python, da forma que for da sua preferência. A versão precisa ser a mesma ou a mais recente que a 3.10.
-2. **Instalar o FFMPEG**
-   
-   * Windows
-     ```powershell
-     winget install ffmpeg
-     ```
+Antes de começar, certifique-se de ter os pré-requisitos instalados.
 
-   * Linux
-       ```bash
-       sudo apt update
-       sudo apt get ffmpeg
-       ```
-       
-   * MacOS
-       * É necessário realizar a instalação do homebrew anteriormente (https://brew.sh/)
-         ```zsh
-         brew install ffmpeg
-         ```
-         
-3. **Clonar o repositório:**
-   
-   ```bash
-   git clone https://github.com/joaoluna-dev/SummaVox.git
-   cd SummaVox
-   ```
-   - Ou, você pode fazer o download do repositório no formato `zip`, na última versão disponível, na página de [Releases](https://github.com/joaoluna-dev/SummaVox/releases)
-        - Caso você faça o download desta maneira, extraia o conteúdo da pasta, e acesse ela pelo terminal
-          ```bash
-          cd caminho_para_a_pasta_do_SummaVox
-          ```
+### 1. Pré-requisitos
 
-4. **Instalar as dependências:**
+* **Python 3.10+**: Instale a versão mais recente da sua preferência.
+* **FFmpeg**: Ferramenta essencial para processamento de áudio. Instale de acordo com seu sistema:
 
-   - Acesse a pasta do SummaVox pelo terminal e execute:
-   ```bash
-   pip install -r requirements.txt
-   ```
+**Windows:**
+```powershell
+winget install ffmpeg
+```
+**Linux(Ubuntu/Debian)**
+```bash
+sudo apt update && sudo apt install ffmpeg
+```
+**macOS (Necessário ter o homebrew instalado: https://brew.sh/)**
+```zsh
+brew install ffmpeg
+```
 
-5. **Instalação do modelo Vosk em português**
+### 2. Escolha o método de instalação
 
-   - **Caso você tenha baixado a versão portátil, disponível na página de Releases, pule esta etapa.**
-     
-   - Acesse a pasta do SummaVox pelo terminal e execute:
-  * Linux e MacOS
-   ```bash
-   curl https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip -o vosk-model-small-pt-0.3.zip
-   unzip vosk-model-small-pt-0.3.zip
-   rm vosk-model-small-pt-0.3.zip
-   ```
+Você pode instalar baixando o pacote pronto (mais fácil) ou clonando o código fonte (para desenvolvimento).
 
-  * Windows
-   ```powershell
-   curl https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip -o vosk-model-small-pt-0.3.zip
-   tar -xf vosk-model-small-pt-0.3.zip
-   del vosk-model-small-pt-0.3.zip
-   ```
+#### 📦 Opção A: Via Release (Recomendado)
+
+Ideal para quem quer apenas usar o software. O modelo Vosk já vem incluído e configurado.
+
+1.  Baixe o arquivo `.zip` da versão mais recente na aba de [Releases](https://github.com/joaoluna-dev/SummaVox/releases).
+2.  Extraia o conteúdo para uma pasta de sua preferência.
+3.  Abra o terminal na pasta extraída e instale as dependências:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  Pronto! O SummaVox está pronto para uso.
+
+#### 💻 Opção B: Via Git (Desenvolvimento)
+
+Ideal para desenvolvedores que querem contribuir ou modificar o código.
+
+1.  Clone o repositório:
+    ```bash
+    git clone https://github.com/joaoluna-dev/SummaVox.git
+    cd SummaVox
+    ```
+
+2.  Instale as dependências:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Baixe e configure o modelo Vosk:** Como esta versão não inclui o modelo, você precisa baixá-lo manualmente. Execute os comandos abaixo conforme seu sistema para baixar e extrair:
+
+    **Linux e MacOS:**
+    ```bash
+    curl -L https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip -o vosk-model-small-pt-0.3.zip
+    unzip -q vosk-model-small-pt-0.3.zip
+    rm vosk-model-small-pt-0.3.zip
+    ```
+
+    **Windows (PowerShell):**
+    ```powershell
+    curl https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip -o vosk-model-small-pt-0.3.zip
+    tar -xf vosk-model-small-pt-0.3.zip
+    del vosk-model-small-pt-0.3.zip
+    ```
 
 ## 🚀 Uso
 
