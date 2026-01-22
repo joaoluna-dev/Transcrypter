@@ -3,14 +3,14 @@
 ## 🌟 Destaques
 
 - Transcrição de arquivos de áudio (.mp3, .wav).
+- Geração de resumos a partir das transcrições usando a API Gemini.
 - Extração de áudio de arquivos de vídeo (.mp4) e sua transcrição.
 - Download de vídeos do YouTube para transcrição.
-- Geração de resumos a partir das transcrições usando a API Gemini.
 - Interface de linha de comando simples para facilidade de uso.
 
 ## ℹ️ Visão Geral
 
-O SummaVox é uma ferramenta baseada em Python projetada para automatizar o processo de transcrição de arquivos de áudio e vídeo e gerar resumos concisos a partir das transcrições. Ele utiliza a biblioteca Vosk para reconhecimento de fala offline e a IA Gemini do Google para sumarização. O modelo utilizado está disponível em https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip.
+O SummaVox é uma ferramenta baseada em Python projetada para automatizar o processo de transcrição de arquivos de áudio e vídeo e gerar resumos concisos a partir das transcrições. Ele utiliza a biblioteca Vosk para reconhecimento de fala offline e a IA Gemini do Google para sumarização. O modelo utilizado está disponível em https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip. O objetivo deste projeto é ajudar principalmente estudantes e profissionais, que lidam com a tarefa de realizar anotações diariamente.
 
 ### ✍️ Autores
 
@@ -23,7 +23,7 @@ joaogabrieldeluna@gmail.com
 * ffmpeg (https://www.gyan.dev/ffmpeg/builds/)
 * Chave de API Gemini (https://aistudio.google.com/apikey)
 * Modelo Vosk para reconhecimento de voz offline (https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip)
-* ⚠️ Para utilizar a funcionalidade de download de vídeos do YouTube, tenha em mente que você deve obter autorização do seu criador para baixar-lo. Não nos responsabilizamos por violações de direitos autorais pelos usuários. ⚠️
+* ⚠️ Tenha em mente que você deve obter autorização do criador do áudio/vídeo de interesse para transcrever e sumarizar o seu conteúdo. Não nos responsabilizamos por violações de direitos autorais pelos usuários. ⚠️
 
 ## ⬇️ Instalação
 
@@ -49,8 +49,8 @@ joaogabrieldeluna@gmail.com
 3. **Clonar o repositório:**
    
    ```bash
-   git clone https://github.com/joaoluna-dev/Transcrypter.git
-   cd Transcrypter
+   git clone https://github.com/joaoluna-dev/SummaVox.git
+   cd SummaVox
    ```
 
 4. **Instalar as dependências:**
@@ -80,7 +80,7 @@ joaogabrieldeluna@gmail.com
 *Execute a aplicação a partir do diretório raiz do projeto:*
 
 ```bash
-cd Transcrypter
+cd SummaVox
 python main.py
 ```
 
